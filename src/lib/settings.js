@@ -4,11 +4,11 @@ export const DEFAULT_SETTINGS = {
   apiKey: '',
   councilModels: [
     'openai/gpt-5.1',
-    'google/gemini-3-pro-preview',
+    'google/gemini-3.1-pro-preview',
     'anthropic/claude-sonnet-4.5',
-    'x-ai/grok-4',
+    'x-ai/grok-4.3',
   ],
-  chairmanModel: 'google/gemini-3-pro-preview',
+  chairmanModel: 'google/gemini-3.1-pro-preview',
   titleModel: 'google/gemini-2.5-flash',
   requestTimeoutMs: 120000,
 };
