@@ -122,3 +122,22 @@ export function exportAll() {
   const conversations = index.map((m) => getConversation(m.id)).filter(Boolean);
   return { exported_at: new Date().toISOString(), conversations };
 }
+
+const STORAGE_PREFIX = 'llmcouncil:';
+
+export function hasStoredData() {
+  for (let i = 0; i < localStorage.length; i++) {
+    const key = localStorage.key(i);
+    if (key && key.startsWith(STORAGE_PREFIX)) return true;
+  }
+  return false;
+}
+
+export function clearAllStoredData() {
+  const keys = [];
+  for (let i = 0; i < localStorage.length; i++) {
+    const key = localStorage.key(i);
+    if (key && key.startsWith(STORAGE_PREFIX)) keys.push(key);
+  }
+  keys.forEach((k) => localStorage.removeItem(k));
+}

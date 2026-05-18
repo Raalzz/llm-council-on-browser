@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { DEFAULT_SETTINGS, getSettings, resetSettings, setSettings } from '../lib/settings';
+import { clearAllStoredData, hasStoredData } from '../lib/storage';
 import './SettingsModal.css';
 
 export default function SettingsModal({ onClose, requireApiKey = false }) {
@@ -10,6 +11,7 @@ export default function SettingsModal({ onClose, requireApiKey = false }) {
   const [titleModel, setTitleModel] = useState(initial.titleModel);
   const [showKey, setShowKey] = useState(false);
   const [error, setError] = useState('');
+  const hasData = hasStoredData();
 
   const handleSave = () => {
     const councilModels = councilModelsText
@@ -46,6 +48,15 @@ export default function SettingsModal({ onClose, requireApiKey = false }) {
     setChairmanModel(s.chairmanModel);
     setTitleModel(s.titleModel);
     setError('');
+  };
+
+  const handleClear = () => {
+    const ok = window.confirm(
+      'This will permanently delete your saved OpenRouter API key, model preferences, and every conversation stored in this browser. Continue?'
+    );
+    if (!ok) return;
+    clearAllStoredData();
+    window.location.reload();
   };
 
   return (
@@ -121,9 +132,21 @@ export default function SettingsModal({ onClose, requireApiKey = false }) {
         </div>
 
         <div className="settings-footer">
-          <button type="button" className="settings-secondary" onClick={handleReset}>
-            Reset to defaults
-          </button>
+          <div className="settings-footer-left">
+            {hasData && (
+              <button
+                type="button"
+                className="settings-danger"
+                onClick={handleClear}
+                title="Permanently deletes your OpenRouter API key, model preferences, and all conversation history stored in this browser. The page will reload afterwards."
+              >
+                Clear Credentials
+              </button>
+            )}
+            <button type="button" className="settings-secondary" onClick={handleReset}>
+              Reset to defaults
+            </button>
+          </div>
           <button type="button" className="settings-primary" onClick={handleSave}>
             Save
           </button>
