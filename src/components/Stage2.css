@@ -151,3 +151,48 @@
   color: #999;
   font-size: 12px;
 }
+
+@media (max-width: 768px) {
+  .stage2 .tabs {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 2px;
+  }
+
+  .stage2 .tab {
+    flex-shrink: 0;
+    padding: 8px 12px;
+    font-size: 13px;
+  }
+
+  .stage2 .tab-content {
+    padding: 12px;
+  }
+
+  .aggregate-item {
+    flex-wrap: wrap;
+    gap: 6px 12px;
+  }
+
+  .rank-model {
+    flex-basis: 100%;
+    order: 2;
+  }
+
+  .rank-position {
+    order: 1;
+  }
+
+  .rank-score {
+    order: 3;
+  }
+
+  .rank-count {
+    order: 4;
+  }
+
+  .aggregate-rankings {
+    padding: 12px;
+  }
+}

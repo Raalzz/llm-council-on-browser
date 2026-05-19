@@ -10,6 +10,8 @@ export default function ChatInterface({
   onSendMessage,
   isLoading,
   pricingTable,
+  onOpenSidebar,
+  onOpenSettings,
 }) {
   const [input, setInput] = useState('');
   const messagesEndRef = useRef(null);
@@ -38,9 +40,41 @@ export default function ChatInterface({
     }
   };
 
+  const mobileHeader = (
+    <div className="mobile-header">
+      <button
+        type="button"
+        className="mobile-icon-btn"
+        onClick={onOpenSidebar}
+        aria-label="Open conversations menu"
+      >
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <line x1="3" y1="6" x2="21" y2="6" />
+          <line x1="3" y1="12" x2="21" y2="12" />
+          <line x1="3" y1="18" x2="21" y2="18" />
+        </svg>
+      </button>
+      <div className="mobile-header-title">
+        {conversation?.title || 'LLM Council'}
+      </div>
+      <button
+        type="button"
+        className="mobile-icon-btn"
+        onClick={onOpenSettings}
+        aria-label="Open settings"
+      >
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="3" />
+          <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33h0a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51h0a1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82v0a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" />
+        </svg>
+      </button>
+    </div>
+  );
+
   if (!conversation) {
     return (
       <div className="chat-interface">
+        {mobileHeader}
         <div className="empty-state">
           <h2>Welcome to LLM Council</h2>
           <p>Create a new conversation to get started</p>
@@ -51,6 +85,7 @@ export default function ChatInterface({
 
   return (
     <div className="chat-interface">
+      {mobileHeader}
       <div className="messages-container">
         {conversation.messages.length === 0 ? (
           <div className="empty-state">

@@ -63,3 +63,31 @@
   color: #333;
   line-height: 1.6;
 }
+
+@media (max-width: 768px) {
+  .stage {
+    padding: 14px;
+    margin: 16px 0;
+  }
+
+  .stage-title {
+    font-size: 15px;
+  }
+
+  .tabs {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 2px;
+  }
+
+  .tab {
+    flex-shrink: 0;
+    padding: 8px 12px;
+    font-size: 13px;
+  }
+
+  .tab-content {
+    padding: 12px;
+  }
+}

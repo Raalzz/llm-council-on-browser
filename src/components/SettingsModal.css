@@ -208,3 +208,30 @@
 .settings-gear:hover {
   background: #f1f1f1;
 }
+
+@media (max-width: 768px) {
+  .settings-gear {
+    display: none;
+  }
+
+  .settings-modal {
+    max-width: 100%;
+    max-height: 100vh;
+    height: 100vh;
+    border-radius: 0;
+  }
+
+  .settings-overlay {
+    padding: 0;
+  }
+
+  .settings-footer {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .settings-footer-left {
+    flex: 1;
+    justify-content: flex-start;
+  }
+}

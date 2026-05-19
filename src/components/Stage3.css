@@ -23,3 +23,13 @@
   line-height: 1.7;
   font-size: 15px;
 }
+
+@media (max-width: 768px) {
+  .final-response {
+    padding: 14px;
+  }
+
+  .final-text {
+    font-size: 14px;
+  }
+}

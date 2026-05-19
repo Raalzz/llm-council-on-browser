@@ -16,6 +16,7 @@ function App() {
   const [apiKeySet, setApiKeySet] = useState(() => hasApiKey());
   const [settingsOpen, setSettingsOpen] = useState(() => !hasApiKey());
   const [pricingTable, setPricingTable] = useState(null);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const loadConversations = async () => {
     try {
@@ -68,6 +69,7 @@ function App() {
         ...conversations,
       ]);
       setCurrentConversationId(newConv.id);
+      setSidebarOpen(false);
     } catch (error) {
       console.error('Failed to create conversation:', error);
     }
@@ -75,6 +77,7 @@ function App() {
 
   const handleSelectConversation = (id) => {
     setCurrentConversationId(id);
+    setSidebarOpen(false);
   };
 
   const handleSettingsClose = (saved) => {
@@ -205,19 +208,30 @@ function App() {
   };
 
   return (
-    <div className="app">
+    <div className={`app ${sidebarOpen ? 'sidebar-drawer-open' : ''}`}>
       <Sidebar
         conversations={conversations}
         currentConversationId={currentConversationId}
         onSelectConversation={handleSelectConversation}
         onNewConversation={handleNewConversation}
         pricingTable={pricingTable}
+        isOpen={sidebarOpen}
+        onClose={() => setSidebarOpen(false)}
       />
+      {sidebarOpen && (
+        <div
+          className="sidebar-backdrop"
+          onClick={() => setSidebarOpen(false)}
+          aria-hidden="true"
+        />
+      )}
       <ChatInterface
         conversation={currentConversation}
         onSendMessage={handleSendMessage}
         isLoading={isLoading}
         pricingTable={pricingTable}
+        onOpenSidebar={() => setSidebarOpen(true)}
+        onOpenSettings={() => setSettingsOpen(true)}
       />
       <button
         className="settings-gear"

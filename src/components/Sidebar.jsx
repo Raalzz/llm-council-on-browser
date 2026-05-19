@@ -8,6 +8,8 @@ export default function Sidebar({
   onSelectConversation,
   onNewConversation,
   pricingTable,
+  isOpen,
+  onClose,
 }) {
   const handleExport = async (event, convId) => {
     event.stopPropagation();
@@ -22,9 +24,17 @@ export default function Sidebar({
   };
 
   return (
-    <div className="sidebar">
+    <div className={`sidebar ${isOpen ? 'open' : ''}`}>
       <div className="sidebar-header">
         <h1>LLM Council</h1>
+        <button
+          type="button"
+          className="sidebar-close"
+          onClick={onClose}
+          aria-label="Close menu"
+        >
+          ×
+        </button>
         <button className="new-conversation-btn" onClick={onNewConversation}>
           + New Conversation
         </button>

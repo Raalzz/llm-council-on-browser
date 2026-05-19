@@ -5,6 +5,11 @@
   display: flex;
   flex-direction: column;
   height: 100vh;
+  flex-shrink: 0;
+}
+
+.sidebar-close {
+  display: none;
 }
 
 .sidebar-header {
@@ -113,4 +118,65 @@
 .conversation-export-btn:hover {
   background: #e8f0fe;
   color: #2a7ae2;
+}
+
+@media (hover: none), (max-width: 768px) {
+  .conversation-export-btn {
+    opacity: 1;
+  }
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    z-index: 200;
+    width: 84vw;
+    max-width: 320px;
+    transform: translateX(-100%);
+    transition: transform 0.25s ease;
+    box-shadow: 2px 0 12px rgba(0, 0, 0, 0.15);
+  }
+
+  .sidebar.open {
+    transform: translateX(0);
+  }
+
+  .sidebar-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .sidebar-header h1 {
+    flex: 1;
+  }
+
+  .sidebar-close {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    border: none;
+    background: transparent;
+    color: #666;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 22px;
+    line-height: 1;
+  }
+
+  .sidebar-close:hover {
+    background: #eaeaea;
+  }
+
+  .new-conversation-btn {
+    flex-basis: 100%;
+  }
 }
