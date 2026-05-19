@@ -61,6 +61,8 @@ export async function queryModel(model, messages, { signal, timeout } = {}) {
     return {
       content: message.content ?? '',
       reasoning_details: message.reasoning_details,
+      usage: data?.usage ?? null,
+      resolved_model: data?.model ?? model,
     };
   } catch (err) {
     console.error(`Error querying model ${model}:`, err);

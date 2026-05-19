@@ -4,6 +4,7 @@ import ChatInterface from './components/ChatInterface';
 import SettingsModal from './components/SettingsModal';
 import { api } from './api';
 import { hasApiKey } from './lib/settings';
+import { getPricingTable } from './lib/pricing';
 import './App.css';
 import './components/SettingsModal.css';
 
@@ -14,6 +15,7 @@ function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [apiKeySet, setApiKeySet] = useState(() => hasApiKey());
   const [settingsOpen, setSettingsOpen] = useState(() => !hasApiKey());
+  const [pricingTable, setPricingTable] = useState(null);
 
   const loadConversations = async () => {
     try {
@@ -36,6 +38,15 @@ function App() {
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
     loadConversations();
+    let cancelled = false;
+    getPricingTable()
+      .then((table) => {
+        if (!cancelled) setPricingTable(table);
+      })
+      .catch(() => {});
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
   useEffect(() => {
@@ -200,11 +211,13 @@ function App() {
         currentConversationId={currentConversationId}
         onSelectConversation={handleSelectConversation}
         onNewConversation={handleNewConversation}
+        pricingTable={pricingTable}
       />
       <ChatInterface
         conversation={currentConversation}
         onSendMessage={handleSendMessage}
         isLoading={isLoading}
+        pricingTable={pricingTable}
       />
       <button
         className="settings-gear"

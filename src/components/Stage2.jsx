@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import ReactMarkdown from 'react-markdown';
+import StageCostBadge from './StageCostBadge';
 import './Stage2.css';
 
 function deAnonymizeText(text, labelToModel) {
@@ -14,7 +15,7 @@ function deAnonymizeText(text, labelToModel) {
   return result;
 }
 
-export default function Stage2({ rankings, labelToModel, aggregateRankings }) {
+export default function Stage2({ rankings, labelToModel, aggregateRankings, pricingTable }) {
   const [activeTab, setActiveTab] = useState(0);
 
   if (!rankings || rankings.length === 0) {
@@ -23,7 +24,10 @@ export default function Stage2({ rankings, labelToModel, aggregateRankings }) {
 
   return (
     <div className="stage stage2">
-      <h3 className="stage-title">Stage 2: Peer Rankings</h3>
+      <div className="stage-title-row">
+        <h3 className="stage-title">Stage 2: Peer Rankings</h3>
+        <StageCostBadge results={rankings} pricingTable={pricingTable} />
+      </div>
 
       <h4>Raw Evaluations</h4>
       <p className="stage-description">

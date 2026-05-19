@@ -66,13 +66,51 @@
   border: 1px solid #4a90e2;
 }
 
+.conversation-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 4px;
+}
+
 .conversation-title {
   color: #333;
   font-size: 14px;
-  margin-bottom: 4px;
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .conversation-meta {
   color: #999;
   font-size: 12px;
+}
+
+.conversation-export-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: #888;
+  border-radius: 4px;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.15s, background 0.15s, color 0.15s;
+  flex-shrink: 0;
+}
+
+.conversation-item:hover .conversation-export-btn,
+.conversation-export-btn:focus-visible {
+  opacity: 1;
+}
+
+.conversation-export-btn:hover {
+  background: #e8f0fe;
+  color: #2a7ae2;
 }

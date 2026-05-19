@@ -9,6 +9,7 @@ export default function ChatInterface({
   conversation,
   onSendMessage,
   isLoading,
+  pricingTable,
 }) {
   const [input, setInput] = useState('');
   const messagesEndRef = useRef(null);
@@ -57,7 +58,11 @@ export default function ChatInterface({
             <p>Ask a question to consult the LLM Council</p>
           </div>
         ) : (
-          conversation.messages.map((msg, index) => (
+          conversation.messages.map((msg, index) => {
+            const previousMsg = index > 0 ? conversation.messages[index - 1] : null;
+            const userMessageForStage3 =
+              previousMsg && previousMsg.role === 'user' ? previousMsg : null;
+            return (
             <div key={index} className="message-group">
               {msg.role === 'user' ? (
                 <div className="user-message">
@@ -79,7 +84,7 @@ export default function ChatInterface({
                       <span>Running Stage 1: Collecting individual responses...</span>
                     </div>
                   )}
-                  {msg.stage1 && <Stage1 responses={msg.stage1} />}
+                  {msg.stage1 && <Stage1 responses={msg.stage1} pricingTable={pricingTable} />}
 
                   {/* Stage 2 */}
                   {msg.loading?.stage2 && (
@@ -93,6 +98,7 @@ export default function ChatInterface({
                       rankings={msg.stage2}
                       labelToModel={msg.metadata?.label_to_model}
                       aggregateRankings={msg.metadata?.aggregate_rankings}
+                      pricingTable={pricingTable}
                     />
                   )}
 
@@ -103,11 +109,19 @@ export default function ChatInterface({
                       <span>Running Stage 3: Final synthesis...</span>
                     </div>
                   )}
-                  {msg.stage3 && <Stage3 finalResponse={msg.stage3} />}
+                  {msg.stage3 && (
+                    <Stage3
+                      finalResponse={msg.stage3}
+                      pricingTable={pricingTable}
+                      userMessage={userMessageForStage3}
+                      conversationTitle={conversation.title}
+                    />
+                  )}
                 </div>
               )}
             </div>
-          ))
+            );
+          })
         )}
 
         {isLoading && (

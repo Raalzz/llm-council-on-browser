@@ -13,3 +13,55 @@
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
 }
+
+.stage-title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.stage-title-row .stage-title {
+  margin: 0;
+}
+
+.stage-title-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.stage-cost-badge {
+  font-size: 12px;
+  color: #666;
+  background: #ffffff;
+  border: 1px solid #e0e0e0;
+  padding: 3px 8px;
+  border-radius: 999px;
+  font-family: monospace;
+  white-space: nowrap;
+}
+
+.stage-export-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: #2d8a2d;
+  background: #ffffff;
+  border: 1px solid #c8e6c8;
+  padding: 4px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.stage-export-btn:hover {
+  background: #f0fff0;
+  border-color: #2d8a2d;
+}
+
+.stage-export-btn svg {
+  display: block;
+}

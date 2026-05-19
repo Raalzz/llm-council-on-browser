@@ -11,7 +11,12 @@ export async function stage1CollectResponses(userQuery) {
   for (const model of councilModels) {
     const response = responses[model];
     if (response !== null && response !== undefined) {
-      stage1Results.push({ model, response: response.content || '' });
+      stage1Results.push({
+        model,
+        response: response.content || '',
+        usage: response.usage ?? null,
+        resolved_model: response.resolved_model ?? model,
+      });
     }
   }
   return stage1Results;
@@ -72,6 +77,8 @@ Now provide your evaluation and ranking:`;
         model,
         ranking: fullText,
         parsed_ranking: parseRankingFromText(fullText),
+        usage: response.usage ?? null,
+        resolved_model: response.resolved_model ?? model,
       });
     }
   }
@@ -114,9 +121,16 @@ Provide a clear, well-reasoned final answer that represents the council's collec
     return {
       model: chairmanModel,
       response: 'Error: Unable to generate final synthesis.',
+      usage: null,
+      resolved_model: chairmanModel,
     };
   }
-  return { model: chairmanModel, response: response.content || '' };
+  return {
+    model: chairmanModel,
+    response: response.content || '',
+    usage: response.usage ?? null,
+    resolved_model: response.resolved_model ?? chairmanModel,
+  };
 }
 
 export function parseRankingFromText(rankingText) {

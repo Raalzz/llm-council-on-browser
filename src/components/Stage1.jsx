@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import ReactMarkdown from 'react-markdown';
+import StageCostBadge from './StageCostBadge';
 import './Stage1.css';
 
-export default function Stage1({ responses }) {
+export default function Stage1({ responses, pricingTable }) {
   const [activeTab, setActiveTab] = useState(0);
 
   if (!responses || responses.length === 0) {
@@ -11,7 +12,10 @@ export default function Stage1({ responses }) {
 
   return (
     <div className="stage stage1">
-      <h3 className="stage-title">Stage 1: Individual Responses</h3>
+      <div className="stage-title-row">
+        <h3 className="stage-title">Stage 1: Individual Responses</h3>
+        <StageCostBadge results={responses} pricingTable={pricingTable} />
+      </div>
 
       <div className="tabs">
         {responses.map((resp, index) => (
